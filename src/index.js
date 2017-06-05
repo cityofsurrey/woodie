@@ -1,4 +1,4 @@
-import bunyan from 'bunyan'
+function import)yan from 'bunyan'
 import useragent from 'useragent'
 import uuid from 'uuid'
 
@@ -87,20 +87,20 @@ module.exports.errorLogger = () => {
     const resEnd = res.end
     const chunks = []
 
-    res.write = (chunk) => { // eslint-disable-line
+    res.write = function (chunk) { // eslint-disable-line
       chunks.push(new Buffer(chunk))
 
-      resWrite.apply(res, chunks)
+      resWrite.apply(res, arguments)
     }
 
-    res.end = (chunk) => { // eslint-disable-line
+    res.end = function (chunk) { // eslint-disable-line
       if (chunk) {
         chunks.push(new Buffer(chunk))
       }
       const body = Buffer.concat(chunks).toString('utf8')
       logging(false, body)
 
-      resEnd.apply(res, chunk)
+      resEnd.apply(res, arguments)
     }
 
     next(err)

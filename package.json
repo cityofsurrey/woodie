@@ -1,6 +1,6 @@
 {
   "name": "woodie",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "City of Surrey Logging Service",
   "main": "./lib/index.js",
   "scripts": {
