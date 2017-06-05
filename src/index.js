@@ -1,4 +1,4 @@
-function import)yan from 'bunyan'
+import bunyan from 'bunyan'
 import useragent from 'useragent'
 import uuid from 'uuid'
 
