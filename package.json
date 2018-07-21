@@ -1,6 +1,6 @@
 {
-  "name": "woodie",
-  "version": "1.0.2",
+  "name": "@cityofsurrey/woodie",
+  "version": "1.0.4",
   "description": "City of Surrey Logging Service",
   "main": "./lib/index.js",
   "scripts": {
@@ -20,6 +20,9 @@
     "url": "https://github.com/beewang/woodie/issues"
   },
   "homepage": "https://github.com/beewang/woodie#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "babel-cli": "^6.7.5",
     "babel-eslint": "^7.1.0",
@@ -35,6 +38,7 @@
   },
   "dependencies": {
     "bunyan": "^1.8.10",
+    "omit-deep": "^0.3.0",
     "useragent": "^2.1.13",
     "uuid": "^3.0.1"
   }
