@@ -42,6 +42,11 @@ const createLogger = () => (err, req, res, next) => {
               (req.socket.socket && req.socket.socket.remoteAddress) ||
               '127.0.0.1'
 
+    const body = req.body
+    if (body.variables) {
+      body.variables = JSON.parse(body.variables)
+    }
+
     const meta = {
       'remote-address': ip,
       ip,
@@ -49,17 +54,14 @@ const createLogger = () => (err, req, res, next) => {
       url,
       referer,
       'user-agent': ua,
-      body: req.body,
+      body,
       'http-version': httpVersion,
       'response-time': responseTime,
       'response-hrtime': hrtime,
       'status-code': status,
       'req-headers': req.headers,
       'res-headers': res._headers, // eslint-disable-line
-      req,
-      res,
       'res-body': resbody,
-      incoming: incoming ? '-->' : '<--',
     }
     if (err) {
       meta.err = err
@@ -68,7 +70,7 @@ const createLogger = () => (err, req, res, next) => {
     const level = logLevel(status, err, meta)
     const logFn = childLogger[level] ? childLogger[level] : childLogger.info
 
-    const metaWithoutSensitiveProperties = omit(meta, ['cvv', 'password', 'variables'])
+    const metaWithoutSensitiveProperties = omit(meta, ['cvv', 'password'])
     logFn.call(childLogger, metaWithoutSensitiveProperties)
   }
 
