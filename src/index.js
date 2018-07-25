@@ -44,7 +44,11 @@ const createLogger = () => (err, req, res, next) => {
 
     const body = req.body
     if (body.variables) {
-      body.variables = JSON.parse(body.variables)
+      try {
+        body.variables = JSON.parse(body.variables)
+      } catch (e) {
+        delete body.variables
+      }
     }
 
     const meta = {
