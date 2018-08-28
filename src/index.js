@@ -44,11 +44,7 @@ const createLogger = () => (err, req, res, next) => {
 
     const body = req.body
     if (body.variables) {
-      try {
-        body.variables = JSON.parse(body.variables)
-      } catch (e) {
-        delete body.variables
-      }
+      body.variables = body.variables.replace(/"cvv": "\d{3}",/gi, '')
     }
 
     const meta = {
@@ -74,8 +70,7 @@ const createLogger = () => (err, req, res, next) => {
     const level = logLevel(status, err, meta)
     const logFn = childLogger[level] ? childLogger[level] : childLogger.info
 
-    const metaWithoutSensitiveProperties = omit(meta, ['cvv', 'password'])
-    logFn.call(childLogger, metaWithoutSensitiveProperties)
+    logFn.call(childLogger, meta)
   }
 
   const resWrite = res.write
