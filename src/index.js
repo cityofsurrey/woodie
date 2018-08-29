@@ -44,7 +44,9 @@ const createLogger = () => (err, req, res, next) => {
 
     const body = req.body
     if (body.variables) {
-      body.variables = body.variables.replace(/"cvv": "\d{3}",/gi, '')
+      try {
+        body.variables = body.variables.replace(/"cvv": "\d{3}",/gi, '')
+      } catch (e) {}
     }
 
     const meta = {
