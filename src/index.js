@@ -43,10 +43,12 @@ const createLogger = () => (err, req, res, next) => {
               '127.0.0.1'
 
     const body = req.body
-    if (body.variables) {
+    if (typeof body.variables === 'string' || body.variables instanceof String) {
       try {
-        body.variables = body.variables.replace(/"cvv": "\d{3}",/gi, '')
-      } catch (e) {}
+        body.variables = JSON.parse(body.variables)
+      } catch (e) {
+        delete body.variables
+      }
     }
 
     const meta = {
@@ -72,7 +74,8 @@ const createLogger = () => (err, req, res, next) => {
     const level = logLevel(status, err, meta)
     const logFn = childLogger[level] ? childLogger[level] : childLogger.info
 
-    logFn.call(childLogger, meta)
+    const metaWithoutSensitiveProperties = omit(meta, ['cvv', 'password', 'token'])
+    logFn.call(childLogger, metaWithoutSensitiveProperties)
   }
 
   const resWrite = res.write
