@@ -37,7 +37,7 @@
     "eslint-plugin-react": "^6.6.0"
   },
   "dependencies": {
-    "bunyan": "^1.8.10",
+    "bunyan": "^1.8.13",
     "omit-deep": "^0.3.0",
     "useragent": "^2.1.13",
     "uuid": "^3.0.1"
